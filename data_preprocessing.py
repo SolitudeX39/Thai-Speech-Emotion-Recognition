@@ -50,14 +50,13 @@ def create_feature_dataframe(base_dir):
                     combined = np.pad(combined, ((0,0), (0,pad_width)), mode='constant')
                 
                 # แปลงเป็น list 2D และ transpose
-                feature_2d = combined.T.astype(np.float32).tolist()
-                if n_features is None:
-                    n_features = combined.shape[0]
-                    
+                feature_2d = combined.T.astype(np.float32)
+
                 feature_data.append({
-                    'feature': feature_2d,
-                    'label': class_name
-                })
+                    'feature': feature_2d.flatten().tolist(),  # เก็บเป็น 1D
+                    'label': class_name,
+                    'original_shape': list(feature_2d.shape)    # เก็บ shape เดิม
+    })
     
     return pd.DataFrame(feature_data), (max_frames, n_features)
 
@@ -72,8 +71,7 @@ metadata = {
     'max_frames': max_frames,
     'n_features': n_features,
     'classes': df['label'].unique().tolist(),
-    'max_files_per_class': max_files_per_class
+    'max_files_per_class': max_files_per_class,
+    'feature_shape_template': [max_frames, n_features]
 }
 np.save('metadata.npy', metadata)
-
-# run time approx 12 mins
