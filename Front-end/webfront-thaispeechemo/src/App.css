@@ -11,6 +11,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top: 20px solid rgb(13, 158, 85);  /* Mint-colored top border */
+  border-bottom: 20px solid rgb(15, 189, 102);  /* Mint-colored bottom border */
+  border-left: 20px solid rgb(13, 158, 85);
+  border-right: 20px solid rgb(13, 158, 85);
 }
 
 /* === LAYOUT CONTAINER === */
@@ -18,13 +22,21 @@ body {
   text-align: center;
   max-width: 100%;
   padding: 20px;
+
 }
 
 /* === WELCOME PAGE === */
 .title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 50px;
+  font-family: 'Poppins', sans-serif; /* Example of a clean, modern font */
+  font-size: 3rem; /* Larger font size */
+  font-weight: bold; /* Make it bold for more impact */
+  letter-spacing: 2px; /* Add letter spacing for more readability */
+  text-transform: uppercase; /* Capitalize all letters */
+  color: #2c6e7f; /* Soft blue color */
+  text-align: center; /* Center the text */
+  line-height: 1.2; /* Tighten line height */
+  padding: 20px; /* Add padding around the title */
+  margin: 0 auto; /* Center it within its container */
 }
 
 .button-container {
