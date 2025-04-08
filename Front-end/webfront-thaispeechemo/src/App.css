@@ -5,14 +5,14 @@
 
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: "Poppins", sans-serif; /* Modern font */
   background-color: white;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 20px solid rgb(13, 158, 85);  /* Mint-colored top border */
-  border-bottom: 20px solid rgb(15, 189, 102);  /* Mint-colored bottom border */
+  border-top: 20px solid rgb(13, 158, 85); /* Mint-colored top border */
+  border-bottom: 20px solid rgb(15, 189, 102); /* Mint-colored bottom border */
   border-left: 20px solid rgb(13, 158, 85);
   border-right: 20px solid rgb(13, 158, 85);
 }
@@ -22,30 +22,30 @@ body {
   text-align: center;
   max-width: 100%;
   padding: 20px;
-
 }
 
 /* === WELCOME PAGE === */
 .title {
-  font-family: 'Poppins', sans-serif; /* Example of a clean, modern font */
   font-size: 3rem; /* Larger font size */
-  font-weight: bold; /* Make it bold for more impact */
-  letter-spacing: 2px; /* Add letter spacing for more readability */
-  text-transform: uppercase; /* Capitalize all letters */
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: #2c6e7f; /* Soft blue color */
-  text-align: center; /* Center the text */
-  line-height: 1.2; /* Tighten line height */
-  padding: 20px; /* Add padding around the title */
-  margin: 0 auto; /* Center it within its container */
+  line-height: 1.2;
+  margin: 0 auto;
+  padding: 20px;
 }
 
+/* BUTTON CONTAINER */
 .button-container {
   display: flex;
   justify-content: center;
   gap: 60px;
   flex-wrap: wrap;
+  margin-top: 30px; /* Added margin to separate from dropdown */
 }
 
+/* OPTION BOXES */
 .option-box {
   background-color: #d3d3d3;
   width: 220px;
@@ -69,7 +69,6 @@ body {
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 20px;
-  line-height: 1.2;
   text-align: center;
 }
 
@@ -157,4 +156,22 @@ body {
 /* === AUDIO ELEMENT === */
 audio {
   margin-top: 10px;
+}
+
+/* === DROPDOWN SELECT === */
+.dropdown-container {
+  margin-top: 20px;
+  margin-bottom: 40px; /* Add margin below dropdown */
+}
+
+.dropdown {
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #2c6e7f;
+  background-color: #d1f6fb;
+  cursor: pointer;
+  width: 400px; /* Increased width for dropdown */
+  font-weight: bold;
+  color: #2c6e7f;
 }
