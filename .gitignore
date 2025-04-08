@@ -3,3 +3,8 @@ Backend/model_assets/ResNet_BiLSTM_Attention_080_3classes.h5
 Backend/model_assets/ResNet_BiLSTM_Attention_080_3classes.h5
 Backend/model_assets/ResNet_BiLSTM_Attention_0735_test2.h5
 Backend/model_assets/ResNet_BiLSTM_Attention_0735_test2.h5
+Backend/model_components/full_model.keras
+Backend/model_components/model_architecture.json
+Backend/model_components/model_weights.weights.h5
+saved_model_h5/model.h5
+saved_model_h5/model.weights.h5
