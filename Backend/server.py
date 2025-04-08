@@ -1,51 +1,82 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS  # To handle CORS
+from flask_cors import CORS
 import os
 from pydub import AudioSegment
 import numpy as np
 import tensorflow as tf
 from io import BytesIO
+import pyodbc
+from datetime import datetime
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)
 
-# Load your trained model here (assumed to be a TensorFlow model for this example)
-model = tf.keras.models.load_model('path_to_your_model.h5')
-
-# Define the upload folder and allowed extensions
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'flac', 'mp3', 'wav', 'webm'}
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Function to check file extension
+# MSSQL database connection setup
+conn = pyodbc.connect(
+    'DRIVER={ODBC Driver 17 for SQL Server};'
+    'SERVER=localhost;'
+    'DATABASE=EmotionDB;'
+    'UID=your_username;'
+    'PWD=your_password'
+)
+cursor = conn.cursor()
+
+# Create the results table if it doesn't exist
+cursor.execute('''
+    IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='AudioResults' AND xtype='U')
+    CREATE TABLE AudioResults (
+        id INT PRIMARY KEY IDENTITY(1,1),
+        filename NVARCHAR(255),
+        emotion NVARCHAR(50),
+        timestamp DATETIME
+    )
+''')
+conn.commit()
+
+# Load your trained model
+# model = tf.keras.models.load_model('path_to_your_model.h5')
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def preprocess_audio(file_obj):
+    try:
+        sound = AudioSegment.from_file(file_obj)
+        sound = sound.set_frame_rate(16000).set_channels(1)
+        samples = np.array(sound.get_array_of_samples()).astype(np.float32)
+        samples = samples / np.max(np.abs(samples))  # Normalize
+        return samples
+    except Exception as e:
+        print("Preprocessing error:", e)
+        return None
 
-# Prediction route for audio emotion recognition
 @app.route('/predict-audio', methods=['POST'])
 def predict_audio():
     if 'audio' not in request.files:
         return jsonify({"error": "No audio file part"}), 400
 
     file = request.files['audio']
-    
+
     if file and allowed_file(file.filename):
-        # Process the audio file and make the prediction
-        audio_file = BytesIO(file.read())  # Read file into memory
+        audio_file = BytesIO(file.read())
         features = preprocess_audio(audio_file)
 
         if features is None:
             return jsonify({"error": "Error processing audio"}), 400
 
-        # Pass the extracted features to the model (assuming it's a TensorFlow model here)
-        features = np.expand_dims(features, axis=0)  # Add batch dimension
-        prediction = model.predict(features)
-        
-        # Map model output to emotion (adapt this as per your model's output)
-        emotion = np.argmax(prediction, axis=1)  # Assuming multi-class classification
-        
+        features = np.expand_dims(features, axis=0)
+
+        # Perform prediction (replace with real model)
+        # prediction = model.predict(features)
+        # emotion = np.argmax(prediction, axis=1)
+        # For testing/demo purposes only:
+        import random
+        emotion = [random.randint(0, 4)]
+
         emotion_map = {
             0: "neutral",
             1: "anger",
@@ -54,6 +85,14 @@ def predict_audio():
             4: "frustration"
         }
         predicted_emotion = emotion_map.get(emotion[0], "unknown")
+
+        # Log to MSSQL
+        timestamp = datetime.now()
+        cursor.execute(
+            "INSERT INTO AudioResults (filename, emotion, timestamp) VALUES (?, ?, ?)",
+            file.filename, predicted_emotion, timestamp
+        )
+        conn.commit()
 
         return jsonify({"emotion": predicted_emotion})
 
