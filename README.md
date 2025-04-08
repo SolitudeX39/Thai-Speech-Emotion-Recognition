@@ -4,11 +4,7 @@
 
 # 🎧 Thai Speech Emotion Recognition - Backend + Frontend
 
-## ระบบตรวจจับอารมณ์จากเสียงพูดภาษาไทย (เวอร์ชัน Mockup - ยังไม่ใช้โมเดลจริง)
-
 ## 🚀 Backend (Flask)
-
-### ✅ การติดตั้งไลบรารี Python
 
 ```bash
 pip install flask flask-cors pydub numpy tensorflow pyodbc
