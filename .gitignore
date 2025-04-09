@@ -8,3 +8,8 @@ Backend/model_components/model_architecture.json
 Backend/model_components/model_weights.weights.h5
 saved_model_h5/model.h5
 saved_model_h5/model.weights.h5
+Backend/test_model_loading.py
+Backend/__pycache__/test2.cpython-312.pyc
+Backend/metadata_normalized.npy
+test_results.txt
+Backend/test_model_loading.py
