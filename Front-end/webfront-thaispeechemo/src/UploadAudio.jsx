@@ -15,13 +15,13 @@ function UploadAudio() {
       setResult("");
     } else {
       setFile(null);
-      setError("Please upload only `.flac` files.");
+      setError("Please upload only FLAC files");
     }
   };
 
   const handleCheck = async () => {
     if (!file) {
-      setError("No file selected yet!");
+      setError("No file selected!");
       return;
     }
 
@@ -36,33 +36,27 @@ function UploadAudio() {
 
       const data = await res.json();
 
-      if (res.ok) {
-        setResult(data.emotion);
-        setError("");
-      } else {
-        setError("Server returned an invalid response.");
-      }
+      if (!res.ok) throw new Error(data.error || "Prediction failed");
+      
+      // Ensure consistent emotion labels (Happy, Sad, Frustrated, Neutral, Angry)
+      setResult(data.emotion); 
+      setError("");
     } catch (err) {
-      setError("Error connecting to the backend.");
+      setError(err.message);
+      console.error("API Error:", err);
     }
   };
 
+  // Emotion class mapping (must match backend labels exactly)
   const getEmotionClass = (emotion) => {
-    switch (emotion.toLowerCase()) {
-      case "neutral":
-        return "emotion-neutral";
-      case "anger":
-      case "angry":
-        return "emotion-anger";
-      case "happiness":
-        return "emotion-happiness";
-      case "sadness":
-        return "emotion-sadness";
-      case "frustration":
-        return "emotion-frustration";
-      default:
-        return "";
-    }
+    const emotionMap = {
+      "Happy": "emotion-happy",
+      "Sad": "emotion-sad",
+      "Frustrated": "emotion-frustrated",
+      "Neutral": "emotion-neutral",
+      "Angry": "emotion-angry"
+    };
+    return emotionMap[emotion] || "";
   };
 
   return (
@@ -82,24 +76,24 @@ function UploadAudio() {
         </label>
 
         <button className="check-btn" onClick={handleCheck}>
-          check
+          Analyze
         </button>
       </div>
 
       {file && (
         <div style={{ marginTop: 20 }}>
-          <p style={{ fontWeight: "bold" }}>🔊 Preview uploaded file:</p>
+          <p style={{ fontWeight: "bold" }}>🔊 Preview:</p>
           <audio controls src={URL.createObjectURL(file)} />
         </div>
       )}
 
-      {error && <p style={{ color: "red", marginTop: 20 }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
 
-      <div style={{ marginTop: "40px", textAlign: "left" }}>
-        <h3>Result</h3>
+      <div className="result-section">
+        <h3>Analysis Result</h3>
         {result && (
           <>
-            <p>From sound is</p>
+            <p>Detected emotion:</p>
             <div className={`result-box ${getEmotionClass(result)}`}>
               {result}
             </div>
