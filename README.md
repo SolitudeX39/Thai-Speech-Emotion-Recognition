@@ -14,5 +14,5 @@ choco install ffmpeg
 ## 🌐 Frontend (React)
 
 ```bash
-npm install react-icons react-router-dom
+npm install react-icons react-router-dom audiobuffer-to-wav
 ```
