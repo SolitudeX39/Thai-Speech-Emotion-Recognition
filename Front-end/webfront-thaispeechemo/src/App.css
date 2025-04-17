@@ -66,10 +66,11 @@ body {
 }
 
 .option-title {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 20px;
   text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #2c6e7f;
 }
 
 .option-icon {
@@ -97,6 +98,15 @@ body {
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 0;
+  background-color: white;
+  color: black;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.upload-box-large:hover {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
 }
 
 .check-btn {
@@ -120,29 +130,40 @@ body {
 }
 
 /* === EMOTION COLOR TAGS === */
+.emotion-text {
+  font-weight: bold;
+  text-transform: capitalize;
+  font-weight: 600;
+  color: white;
+}
 .emotion-neutral {
-  background-color: #ffcc00; /* yellow */
-  color: black;
+  color: #ffcc00; /* yellow */
+  /* color: black; */
+  background-color: transparent;
 }
 
-.emotion-anger {
-  background-color: #d83a3a; /* red */
+.emotion-angry {
+  color: #d83a3a; /* red */
+  background-color: transparent;
 }
 
-.emotion-happiness {
-  background-color: #4caf50; /* green */
+.emotion-happy {
+  color: #4caf50; /* green */
+  background-color: transparent;
 }
 
-.emotion-sadness {
-  background-color: #2196f3; /* blue */
+.emotion-sad {
+  color: #2196f3; /* blue */
+  background-color: transparent;
 }
 
-.emotion-frustration {
-  background-color: #9c27b0; /* purple */
+.emotion-frustrated {
+  color: #9c27b0; /* purple */
+  background-color: transparent;
 }
 
 /* === MICROPHONE ICON === */
-.mic-icon {
+/* .mic-icon {
   background-color: #2c6e7f;
   border-radius: 50%;
   padding: 20px;
@@ -151,7 +172,7 @@ body {
 
 .mic-icon.recording {
   background-color: #e04c4c;
-}
+} */
 
 /* === AUDIO ELEMENT === */
 audio {
@@ -174,4 +195,88 @@ audio {
   width: 400px; /* Increased width for dropdown */
   font-weight: bold;
   color: #2c6e7f;
+}
+
+.static-box {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: none;
+  transition: none;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* === RESULT SECTION === */
+.results {
+  /* margin-top: 30px; */
+  text-align: left;
+  /* background-color: #f2f9fa; */
+  padding: 2px;
+  border-radius: 10px;
+  /* border: 1px solid #c2e0e5; */
+}
+
+.results h2 {
+  font-size: 24px;
+  color: #2c6e7f;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+.results h3 {
+  text-align: center;
+}
+
+.results-summary p {
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+/* .emotion-text {
+  font-weight: bold;
+  color: #4caf50;
+} */
+
+.confidence-value {
+  font-weight: bold;
+  color: #ff9800;
+}
+
+/* === PREDICTIONS LIST === */
+.predictions {
+  margin-top: 20px;
+}
+
+.predictions h3 {
+  font-size: 20px;
+  color: #2c6e7f;
+  margin-bottom: 10px;
+}
+
+.predictions-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.prediction-item {
+  font-size: 16px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  /* background-color: #ffffff; */
+  /* border: 1px solid #e0e0e0; */
+  border-radius: 6px;
+}
+
+.emotion-name {
+  color: #2c6e7f;
+}
+
+.emotion-confidence {
+  font-weight: bold;
+  color: #555;
 }

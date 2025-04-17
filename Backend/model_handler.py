@@ -19,7 +19,7 @@ class ThaiEmotionRecognizer:
         
         # Build model and load weights
         self.model = self._build_hybrid_model()
-        weights_path = os.path.join(os.path.dirname(__file__), r"C:\Users\cmanw\Downloads\4layer_weight.h5")
+        weights_path = os.path.join(os.path.dirname(__file__), r"C:\Users\Janejojija\Downloads\4layer_weight.h5")
         self.model.load_weights(weights_path)
 
     # 1. Residual Block (EXACTLY as in your code)
